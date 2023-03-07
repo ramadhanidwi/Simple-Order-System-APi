@@ -39,14 +39,15 @@ namespace Simple_Order_System_APi.Models
         [Column("employee_id", TypeName="nchar(11)")]
         public int employee_id { get; set; }
 
-        //cardinality 
-        //[JsonIgnore]
-        //public ICollection<Employee> Employees { get; set; }
+        //cardinality
+        [JsonIgnore]
+        public ICollection<Order>? orders { get; set; }
 
         [JsonIgnore]
-        public Order order { get; set; }
+        public ICollection<Payment>? payments { get; set; }
 
         [JsonIgnore]
-        public Payment payment { get; set; }
+        [ForeignKey(nameof(employee_id))]
+        public Employee? employee { get; set; }
     }
 }

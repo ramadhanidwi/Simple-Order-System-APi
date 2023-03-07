@@ -29,14 +29,13 @@ namespace Simple_Order_System_APi.Models
         [Required, Column("job_title"), MaxLength(30)]
         public string JobTitle { get; set; }
 
-        //relasi
+        //relasi & cardinality
         [ForeignKey(nameof(OfficeCode))]
-
-        //cardinality
         [JsonIgnore]
         public Office? Office { get; set; }
-/*        [JsonIgnore]
-        ICollection<Customer>? Customers { get; set; }*/
+
+        [JsonIgnore]
+        ICollection<Customer>? customers { get; set; }
     }
 
 }

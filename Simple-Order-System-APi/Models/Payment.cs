@@ -24,6 +24,6 @@ namespace Simple_Order_System_APi.Models
         //Cardinality 
         [JsonIgnore]
         [ForeignKey(nameof(customerId))]
-        public ICollection<Customer> customers { get; set; }
+        public Customer customer { get; set; }
     }
 }
