@@ -35,15 +35,17 @@ namespace Simple_Order_System_APi.Models
         public Office? Office { get; set; }
 
         [JsonIgnore]
-<<<<<<< HEAD
+
         public Employee? ReportTo { get; set; }
 
         [JsonIgnore]
         ICollection<Customer>? Customers { get; set; }
-        
-=======
-        ICollection<Customer>? customers { get; set; }
->>>>>>> rama
+
+        [JsonIgnore]
+        public ICollection<Employee>? Employees { get; set; }
+
+        [JsonIgnore]
+        public Account? Account { get; set; }
     }
 
 }
