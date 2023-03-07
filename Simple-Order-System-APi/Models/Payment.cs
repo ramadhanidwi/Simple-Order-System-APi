@@ -21,14 +21,13 @@ namespace Simple_Order_System_APi.Models
         [Column("customer_id")]
         public int CustomerId {get; set;}
 
+        
+        //relasi
+        [ForeignKey(nameof(CustomerId))]
+
         //Cardinality 
         [JsonIgnore]
-<<<<<<< HEAD
-        [ForeignKey(nameof(CustomerId))]
-        public ICollection<Customer>? Customers { get; set; }
-=======
-        [ForeignKey(nameof(customerId))]
-        public Customer customer { get; set; }
->>>>>>> rama
+        public Customer? Customer { get; set; }
+
     }
 }
