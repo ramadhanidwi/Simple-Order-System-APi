@@ -23,7 +23,12 @@ namespace Simple_Order_System_APi.Models
 
         //Cardinality 
         [JsonIgnore]
+<<<<<<< HEAD
         [ForeignKey(nameof(CustomerId))]
         public ICollection<Customer>? Customers { get; set; }
+=======
+        [ForeignKey(nameof(customerId))]
+        public Customer customer { get; set; }
+>>>>>>> rama
     }
 }
