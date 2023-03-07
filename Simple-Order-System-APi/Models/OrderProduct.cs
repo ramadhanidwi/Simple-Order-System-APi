@@ -8,7 +8,7 @@ namespace Simple_Order_System_APi.Models
     [Table("tb_tr_order_products")]
     public class OrderProduct
     {
-        [Key, Column("id", TypeName = "nchar(11)")]
+        [Key, Column("id")]
         public int Id { get; set; }
 
         [Required, Column("qty")]
