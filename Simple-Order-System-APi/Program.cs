@@ -1,18 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using Simple_Order_System_APi.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+var connectionString = builder.Configuration.GetConnectionString("Connection");
+builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(connectionString));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -28,13 +30,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-//Sinergi Perubahan
-//Sinergi Perubahan
-//Sinergi Perubahan
-//Sinergi Perubahan
-
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
