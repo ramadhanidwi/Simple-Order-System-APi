@@ -9,11 +9,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -28,13 +23,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-//Sinergi Perubahan
-//Sinergi Perubahan
-//Sinergi Perubahan
-//Sinergi Perubahan
-
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
-//TEST BRANCH
