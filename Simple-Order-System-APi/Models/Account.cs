@@ -7,8 +7,8 @@ namespace Simple_Order_System_APi.Models
     [Table("tb_m_accounts")]
     public class Account
     {
-        [Key, Column("id")]
-        public int Id { get; set; }
+        [Key, Column("employee_id")]
+        public int EmployeeId { get; set; }
 
         [Required, Column("password"), MaxLength(255)]
         public string Password { get; set; }

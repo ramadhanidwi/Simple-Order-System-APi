@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Simple_Order_System_APi.Models
 {
@@ -11,5 +12,9 @@ namespace Simple_Order_System_APi.Models
 
         [Required, Column("name", TypeName ="nvarchar(50)")]
         public string Name { get; set; }
+
+        //cardinality
+        [JsonIgnore]
+        public ICollection<AccountRole>? AccountRoles { get; set; }
     }
 }

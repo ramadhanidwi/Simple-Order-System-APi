@@ -41,7 +41,9 @@ namespace Simple_Order_System_APi.Models
 
         [JsonIgnore]
         ICollection<Customer>? Customers { get; set; }
-        
+
+        [JsonIgnore]
+        public Account? Account { get; set; }
     }
 
 }
