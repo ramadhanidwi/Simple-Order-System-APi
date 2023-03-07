@@ -36,8 +36,6 @@ namespace Simple_Order_System_APi.Models
 
         //relasi
         [ForeignKey(nameof(ProductlineId))]
-
-        //cardinality
         [JsonIgnore]
         public ProductLine? ProductLine { get; set; }
         /*[JsonIgnore]
