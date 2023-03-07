@@ -23,3 +23,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//Sinergi Perubahan
+//Sinergi Perubahan
+//Sinergi Perubahan
+//Sinergi Perubahan
