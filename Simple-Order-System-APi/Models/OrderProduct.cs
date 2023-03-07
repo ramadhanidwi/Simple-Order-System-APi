@@ -5,31 +5,31 @@ using System.Xml;
 
 namespace Simple_Order_System_APi.Models
 {
-    [Table("tb_m_order_products")]
+    [Table("tb_tr_order_products")]
     public class OrderProduct
     {
         [Key, Column("id", TypeName = "nchar(11)")]
         public int Id { get; set; }
 
         [Required, Column("qty")]
-        public int qty { get; set; }
+        public int Qty { get; set; }
 
         [Range(0,13), Required, Column("price_each")]
-        public int priceEach { get; set; }
+        public int PriceEach { get; set; }
 
         [Column("order_id")]
-        public int orderId { get; set; }
+        public int OrderId { get; set; }
 
         [Column("product_code")]
-        public int productCode { get; set; }
+        public int ProductCode { get; set; }
 
         //Cardinality
         [JsonIgnore]
-        [ForeignKey("orderId")]
-        public ICollection<Order> orders { get; set; }
+        [ForeignKey(nameof(OrderId))]
+        public ICollection<Order>? Orders { get; set; }
 
-        //[JsonIgnore]
-        //[ForeignKey("productCode")]
-        //public ICollection<ProductLine> productLines { get; set; }
+        [JsonIgnore]
+        [ForeignKey(nameof(ProductCode))]
+        public ICollection<ProductLine>? ProductLines { get; set; }
     }
 }

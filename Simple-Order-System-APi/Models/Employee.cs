@@ -35,8 +35,13 @@ namespace Simple_Order_System_APi.Models
         //cardinality
         [JsonIgnore]
         public Office? Office { get; set; }
-/*        [JsonIgnore]
-        ICollection<Customer>? Customers { get; set; }*/
+
+        [JsonIgnore]
+        public Employee? ReportTo { get; set; }
+
+        [JsonIgnore]
+        ICollection<Customer>? Customers { get; set; }
+        
     }
 
 }

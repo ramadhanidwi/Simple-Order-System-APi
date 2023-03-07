@@ -14,8 +14,8 @@ namespace Simple_Order_System_APi.Models
         public string Password { get; set; }
 
         //cardinality
-       /* [JsonIgnore]
-        public ICollection<AccountRole>? AccountRoles { get; set; }*/
+        [JsonIgnore]
+        public ICollection<AccountRole>? AccountRoles { get; set; }
         [JsonIgnore]
         public Employee? Employee { get; set; }
     }

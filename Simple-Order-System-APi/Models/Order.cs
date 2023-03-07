@@ -8,7 +8,7 @@ namespace Simple_Order_System_APi.Models
     public class Order
     {
         [Key, Column("id", TypeName = "nchar(11)")]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required, Column("order_date")]
         public DateTime OrderDate { get; set; }
@@ -25,6 +25,6 @@ namespace Simple_Order_System_APi.Models
         //Cardinality 
         [JsonIgnore]
         [ForeignKey(nameof(CustomerId))]    
-        public ICollection<Customer> customers { get; set; }
+        public ICollection<Customer>? Customers { get; set; }
     }
 }

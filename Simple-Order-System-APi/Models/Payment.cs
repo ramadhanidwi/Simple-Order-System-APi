@@ -6,24 +6,24 @@ using System.Text.Json.Serialization;
 
 namespace Simple_Order_System_APi.Models
 {
-    [Table("tb_m_rma_payments")]
+    [Table("tb_m_payments")]
     public class Payment
     {
         [Key, Column("check_num", TypeName = "nvarchar(10)")]
-        public int check_num { get; set; }
+        public int CheckNum { get; set; }
 
         [Required, Column("payment_date")]
-        public DateTime payment_date { get; set; }
+        public DateTime PaymentDate { get; set; }
 
-        [Required, Range(0, 13), Column("ammount")]
-        public int ammount { get; set; }
+        [Required, Range(0, 13), Column("amount")]
+        public int Amount { get; set; }
 
         [Column("customer_id")]
-        public int customerId {get; set;}
+        public int CustomerId {get; set;}
 
         //Cardinality 
         [JsonIgnore]
-        [ForeignKey(nameof(customerId))]
-        public ICollection<Customer> customers { get; set; }
+        [ForeignKey(nameof(CustomerId))]
+        public ICollection<Customer>? Customers { get; set; }
     }
 }
