@@ -5,12 +5,13 @@ namespace Simple_Order_System_APi.ViewModels
 {
     public class RegisterVM
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "Office Code")]
         public int OfficeCode { get; set; }
 
         [Display(Name = "Reports To")]
+
         public int? ReportsTo { get; set; }
 
         [Display(Name = "First Name")]

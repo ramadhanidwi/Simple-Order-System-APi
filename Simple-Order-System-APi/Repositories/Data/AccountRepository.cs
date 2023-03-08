@@ -6,7 +6,7 @@ using Simple_Order_System_APi.ViewModels;
 
 namespace Simple_Order_System_APi.Repositories.Data
 {
-    public class AccountRepository : GeneralRepository<int, Account>
+    public class AccountRepository : GeneralRepository<string, Account>
     {
         private readonly MyContext context;
 
@@ -34,7 +34,7 @@ namespace Simple_Order_System_APi.Repositories.Data
             Account account = new Account
             {
                 EmployeeId = registerVM.Id,
-
+                
                 //Password = registerVM.Password
                 //Password = BCrypt.Net.BCrypt.HashPassword(registerVM.Password),
                 Password = Hashing.HashPassword(registerVM.Password),

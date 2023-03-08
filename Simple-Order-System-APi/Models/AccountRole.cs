@@ -11,7 +11,7 @@ namespace Simple_Order_System_APi.Models
         public int Id { get; set; }
 
         [Required, Column("account_id")]
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         [Required, Column("role_id")]
         public int RoleId { get; set; }

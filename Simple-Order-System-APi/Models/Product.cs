@@ -28,7 +28,7 @@ namespace Simple_Order_System_APi.Models
         [Required, Column("qty_in_stock")]
         public int QtyInStock { get; set; }
 
-        [Required, Range(0, 13), Column("buy_price")]
+        [Required, Column("buy_price")]
         public int  BuyPrice { get; set; }
 
         [Required, Column("msrp"), MaxLength(50)]

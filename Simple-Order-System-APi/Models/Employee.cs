@@ -9,13 +9,13 @@ namespace Simple_Order_System_APi.Models
     public class Employee
     {
         [Key, Column("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required, Column("office_code")]
         public int OfficeCode { get; set; }
 
         [Column("reports_to")]
-        public int? ReportsTo { get; set; }
+        public string? ReportsTo { get; set; }
 
         [Required, Column("first_name"), MaxLength(50)]
         public string FirstName { get; set; }
@@ -35,7 +35,6 @@ namespace Simple_Order_System_APi.Models
         public Office? Office { get; set; }
 
         [JsonIgnore]
-
         public Employee? ReportTo { get; set; }
 
         [JsonIgnore]

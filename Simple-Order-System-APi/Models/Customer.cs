@@ -37,7 +37,7 @@ namespace Simple_Order_System_APi.Models
         public string Country { get; set; }
 
         [Column("employee_id")]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         //relasi
         [ForeignKey(nameof(EmployeeId))]

@@ -12,7 +12,7 @@ using Simple_Order_System_APi.Contexts;
 namespace Simple_Order_System_APi.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230307181404_InitialCommit")]
+    [Migration("20230308072153_InitialCommit")]
     partial class InitialCommit
     {
         /// <inheritdoc />
@@ -27,8 +27,8 @@ namespace Simple_Order_System_APi.Migrations
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Account", b =>
                 {
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int")
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("employee_id");
 
                     b.Property<string>("Password")
@@ -51,8 +51,9 @@ namespace Simple_Order_System_APi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int")
+                    b.Property<string>("AccountId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("account_id");
 
                     b.Property<int>("RoleId")
@@ -96,8 +97,9 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("country");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int")
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("employee_id");
 
                     b.Property<string>("FirstName")
@@ -133,12 +135,9 @@ namespace Simple_Order_System_APi.Migrations
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Employee", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -167,8 +166,8 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("office_code");
 
-                    b.Property<int?>("ReportsTo")
-                        .HasColumnType("int")
+                    b.Property<string>("ReportsTo")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("reports_to");
 
                     b.HasKey("Id");

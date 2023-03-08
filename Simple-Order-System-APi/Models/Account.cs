@@ -8,7 +8,7 @@ namespace Simple_Order_System_APi.Models
     public class Account
     {
         [Key, Column("employee_id")]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         [Required, Column("password"), MaxLength(255)]
         public string Password { get; set; }

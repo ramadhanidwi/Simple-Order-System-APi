@@ -8,7 +8,7 @@ namespace Simple_Order_System_APi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : BaseController<int, Employee, EmployeeRepository>
+    public class EmployeeController : BaseController<string, Employee, EmployeeRepository>
     {
         public EmployeeController(EmployeeRepository repository) : base(repository)
         {

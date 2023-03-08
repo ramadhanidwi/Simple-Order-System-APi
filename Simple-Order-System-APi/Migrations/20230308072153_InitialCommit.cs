@@ -62,10 +62,9 @@ namespace Simple_Order_System_APi.Migrations
                 name: "tb_m_employees",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     office_code = table.Column<int>(type: "int", nullable: false),
-                    reports_to = table.Column<int>(type: "int", nullable: true),
+                    reports_to = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     first_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     last_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -117,7 +116,7 @@ namespace Simple_Order_System_APi.Migrations
                 name: "tb_m_accounts",
                 columns: table => new
                 {
-                    employee_id = table.Column<int>(type: "int", nullable: false),
+                    employee_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
@@ -146,7 +145,7 @@ namespace Simple_Order_System_APi.Migrations
                     state = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     postal_code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    employee_id = table.Column<int>(type: "int", nullable: false)
+                    employee_id = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -165,7 +164,7 @@ namespace Simple_Order_System_APi.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    account_id = table.Column<int>(type: "int", nullable: false),
+                    account_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     role_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
