@@ -14,13 +14,10 @@ namespace Simple_Order_System_APi.Models
         [Required, Column("qty")]
         public int Qty { get; set; }
 
-<<<<<<< HEAD
+
         [Range(0,13), Required, Column("price_each")]
         public int PriceEach { get; set; }
-=======
-        [Range(0, 13), Required, Column("price_each")]
-        public int priceEach { get; set; }
->>>>>>> rama
+
 
         [Column("order_id")]
         public int OrderId { get; set; }
@@ -30,21 +27,13 @@ namespace Simple_Order_System_APi.Models
 
         //Cardinality
         [JsonIgnore]
-<<<<<<< HEAD
         [ForeignKey(nameof(OrderId))]
-        public ICollection<Order>? Orders { get; set; }
-
-        [JsonIgnore]
-        [ForeignKey(nameof(ProductCode))]
-        public ICollection<ProductLine>? ProductLines { get; set; }
-=======
-        [ForeignKey(nameof(orderId))]
         public Order? order { get; set; }
 
         [JsonIgnore]
-        [ForeignKey(nameof(productCode))]
+        [ForeignKey(nameof(ProductCode))]
         public Product product { get; set; }
->>>>>>> rama
+
     }
 
 }

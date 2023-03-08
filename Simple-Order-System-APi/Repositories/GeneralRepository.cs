@@ -9,6 +9,11 @@ namespace Simple_Order_System_APi.Repositories
     {
         private readonly MyContext context;
 
+        public GeneralRepository(MyContext context)
+        {
+            this.context = context;
+        }
+
         public async Task<int> Delete(Key key)
         {
             var entity = await GetById(key);

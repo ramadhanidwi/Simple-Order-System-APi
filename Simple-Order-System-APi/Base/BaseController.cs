@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Simple_Order_System_APi.Repositories.Interface;
+using Simple_Order_System_APi.Models;
 
 namespace Simple_Order_System_APi.Base
 {
@@ -16,6 +17,7 @@ namespace Simple_Order_System_APi.Base
             this.repository = repository;
         }
 
+        //GetAll
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -92,6 +94,7 @@ namespace Simple_Order_System_APi.Base
             }
         }
 
+        //Insert
         [HttpPost]
         public async Task<ActionResult> Insert(Entity entity)
         {

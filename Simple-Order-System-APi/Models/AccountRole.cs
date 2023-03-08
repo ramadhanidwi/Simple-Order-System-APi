@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Simple_Order_System_APi.Models
 {
@@ -8,5 +9,24 @@ namespace Simple_Order_System_APi.Models
     {
         [Key, Column("id")]
         public int Id { get; set; }
+
+        [Required, Column("account_id")]
+        public int AccountId { get; set; }
+
+        [Required, Column("role_id")]
+        public int RoleId { get; set; }
+
+
+        //relasi
+        [ForeignKey(nameof(AccountId))]
+        //cardinality
+        [JsonIgnore]
+        public Account? Account { get; set; }
+
+        //relasi
+        [ForeignKey(nameof(RoleId))]
+        //cardinality
+        [JsonIgnore]
+        public Role? Role { get; set; }
     }
 }
