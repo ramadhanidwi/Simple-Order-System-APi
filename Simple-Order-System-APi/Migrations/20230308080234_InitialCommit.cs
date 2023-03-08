@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Simple_Order_System_APi.Migrations
 {
     /// <inheritdoc />
@@ -47,7 +49,8 @@ namespace Simple_Order_System_APi.Migrations
                 name: "tb_m_role",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "nchar(11)", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(50)", nullable: false)
                 },
                 constraints: table =>
@@ -59,22 +62,20 @@ namespace Simple_Order_System_APi.Migrations
                 name: "tb_m_employees",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    id = table.Column<string>(type: "nchar(5)", nullable: false),
                     office_code = table.Column<int>(type: "int", nullable: false),
-                    reports_to = table.Column<int>(type: "int", nullable: true),
+                    reports_to = table.Column<string>(type: "nchar(5)", nullable: true),
                     first_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     last_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    job_title = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    ReportToId = table.Column<int>(type: "int", nullable: true)
+                    job_title = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_m_employees", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_m_employees_tb_m_employees_ReportToId",
-                        column: x => x.ReportToId,
+                        name: "FK_tb_m_employees_tb_m_employees_reports_to",
+                        column: x => x.reports_to,
                         principalTable: "tb_m_employees",
                         principalColumn: "id");
                     table.ForeignKey(
@@ -115,26 +116,26 @@ namespace Simple_Order_System_APi.Migrations
                 name: "tb_m_accounts",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: true)
+                    employee_id = table.Column<string>(type: "nchar(5)", nullable: false),
+                    password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_m_accounts", x => x.id);
+                    table.PrimaryKey("PK_tb_m_accounts", x => x.employee_id);
                     table.ForeignKey(
-                        name: "FK_tb_m_accounts_tb_m_employees_EmployeeId",
-                        column: x => x.EmployeeId,
+                        name: "FK_tb_m_accounts_tb_m_employees_employee_id",
+                        column: x => x.employee_id,
                         principalTable: "tb_m_employees",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "tb_m_customers",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "nchar(11)", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     first_name = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     last_name = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     phone = table.Column<string>(type: "nvarchar(15)", nullable: false),
@@ -144,7 +145,7 @@ namespace Simple_Order_System_APi.Migrations
                     state = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     postal_code = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     country = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    employee_id = table.Column<int>(type: "int", nullable: false)
+                    employee_id = table.Column<string>(type: "nchar(5)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,8 +164,8 @@ namespace Simple_Order_System_APi.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    account_id = table.Column<int>(type: "int", nullable: false),
-                    role_id = table.Column<string>(type: "nchar(11)", nullable: false)
+                    account_id = table.Column<string>(type: "nchar(5)", nullable: false),
+                    role_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,7 +174,7 @@ namespace Simple_Order_System_APi.Migrations
                         name: "FK_tb_tr_account_roles_tb_m_accounts_account_id",
                         column: x => x.account_id,
                         principalTable: "tb_m_accounts",
-                        principalColumn: "id",
+                        principalColumn: "employee_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tb_tr_account_roles_tb_m_role_role_id",
@@ -191,7 +192,7 @@ namespace Simple_Order_System_APi.Migrations
                     order_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     shipped_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     comments = table.Column<string>(type: "nvarchar(255)", nullable: false),
-                    customer_id = table.Column<string>(type: "nchar(11)", nullable: false)
+                    customer_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,7 +212,7 @@ namespace Simple_Order_System_APi.Migrations
                     check_num = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     payment_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     amount = table.Column<int>(type: "int", nullable: false),
-                    customer_id = table.Column<string>(type: "nchar(11)", nullable: false)
+                    customer_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,10 +252,14 @@ namespace Simple_Order_System_APi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_tb_m_accounts_EmployeeId",
-                table: "tb_m_accounts",
-                column: "EmployeeId");
+            migrationBuilder.InsertData(
+                table: "tb_m_role",
+                columns: new[] { "id", "name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "User" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_m_customers_employee_id",
@@ -262,14 +267,20 @@ namespace Simple_Order_System_APi.Migrations
                 column: "employee_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tb_m_employees_email",
+                table: "tb_m_employees",
+                column: "email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_m_employees_office_code",
                 table: "tb_m_employees",
                 column: "office_code");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_m_employees_ReportToId",
+                name: "IX_tb_m_employees_reports_to",
                 table: "tb_m_employees",
-                column: "ReportToId");
+                column: "reports_to");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_m_orders_customer_id",

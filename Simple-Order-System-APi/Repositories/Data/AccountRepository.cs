@@ -1,4 +1,5 @@
-﻿using Simple_Order_System_APi.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Simple_Order_System_APi.Contexts;
 using Simple_Order_System_APi.Handlers;
 using Simple_Order_System_APi.Models;
 using Simple_Order_System_APi.ViewModels;
@@ -44,7 +45,7 @@ namespace Simple_Order_System_APi.Repositories.Data
 
             AccountRole accountRole = new AccountRole
             {
-                AccountId = registerVM.Id,
+                AccountId =registerVM.Id,
                 RoleId = 2
             };
             await context.AccountRoles.AddAsync(accountRole);
@@ -72,13 +73,13 @@ namespace Simple_Order_System_APi.Repositories.Data
             //return getAccounts.Any(e => e.Email == loginVM.Email && e.Password == loginVM.Password);
         }
 
-        public UserDataVM GetUserdata(string email)
+        public async Task<UserDataVM> GetUserdata(string email)
         {
 
             var userdata = (from e in context.Employees
                             join a in context.Accounts
-                            on e.Id equals a.EmployeeId
-                            join ar in context.AccountRoles
+                            on e.Id equals a.EmployeeId 
+                            join ar in context.AccountRoles 
                             on a.EmployeeId equals ar.AccountId
                             join r in context.Roles
                             on ar.RoleId equals r.Id
@@ -92,11 +93,10 @@ namespace Simple_Order_System_APi.Repositories.Data
 
             return userdata;
         }
-
-        public List<string> GetRolesById(string email)
+        public async Task<IEnumerable<string>> GetRolesByID(string email)
         {
-            var getNik = context.Employees.FirstOrDefault(e => e.Email == email);
-            return context.AccountRoles.Where(ar => ar.AccountId == getNik.Id).Join(
+            var getId = context.Employees.FirstOrDefault(e => e.Email == email);
+            return context.AccountRoles.Where(ar => ar.AccountId == getId.Id).Join(
                 context.Roles,
                 ar => ar.RoleId,
                 r => r.Id,

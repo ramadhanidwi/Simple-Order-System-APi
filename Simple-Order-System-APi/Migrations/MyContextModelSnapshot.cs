@@ -24,15 +24,9 @@ namespace Simple_Order_System_APi.Migrations
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Account", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nchar(5)")
+                        .HasColumnName("employee_id");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -40,9 +34,7 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("password");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
+                    b.HasKey("EmployeeId");
 
                     b.ToTable("tb_m_accounts");
                 });
@@ -56,13 +48,13 @@ namespace Simple_Order_System_APi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int")
+                    b.Property<string>("AccountId")
+                        .IsRequired()
+                        .HasColumnType("nchar(5)")
                         .HasColumnName("account_id");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nchar(11)")
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int")
                         .HasColumnName("role_id");
 
                     b.HasKey("Id");
@@ -76,10 +68,12 @@ namespace Simple_Order_System_APi.Migrations
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Customer", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nchar(11)")
+                        .HasColumnType("int")
                         .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address1")
                         .IsRequired()
@@ -100,8 +94,9 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("country");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int")
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nchar(5)")
                         .HasColumnName("employee_id");
 
                     b.Property<string>("FirstName")
@@ -137,12 +132,9 @@ namespace Simple_Order_System_APi.Migrations
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Employee", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<string>("Id")
+                        .HasColumnType("nchar(5)")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -171,18 +163,18 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("office_code");
 
-                    b.Property<int?>("ReportToId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReportsTo")
-                        .HasColumnType("int")
+                    b.Property<string>("ReportsTo")
+                        .HasColumnType("nchar(5)")
                         .HasColumnName("reports_to");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("OfficeCode");
 
-                    b.HasIndex("ReportToId");
+                    b.HasIndex("ReportsTo");
 
                     b.ToTable("tb_m_employees");
                 });
@@ -252,9 +244,8 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("comments");
 
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("nchar(11)")
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int")
                         .HasColumnName("customer_id");
 
                     b.Property<DateTime>("OrderDate")
@@ -316,9 +307,8 @@ namespace Simple_Order_System_APi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("amount");
 
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("nchar(11)")
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int")
                         .HasColumnName("customer_id");
 
                     b.Property<DateTime>("PaymentDate")
@@ -409,10 +399,12 @@ namespace Simple_Order_System_APi.Migrations
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Role", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nchar(11)")
+                        .HasColumnType("int")
                         .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -422,13 +414,27 @@ namespace Simple_Order_System_APi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tb_m_role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("Simple_Order_System_APi.Models.Account", b =>
                 {
                     b.HasOne("Simple_Order_System_APi.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .WithOne("Account")
+                        .HasForeignKey("Simple_Order_System_APi.Models.Account", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });
@@ -442,7 +448,7 @@ namespace Simple_Order_System_APi.Migrations
                         .IsRequired();
 
                     b.HasOne("Simple_Order_System_APi.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("AccountRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -472,8 +478,9 @@ namespace Simple_Order_System_APi.Migrations
                         .IsRequired();
 
                     b.HasOne("Simple_Order_System_APi.Models.Employee", "ReportTo")
-                        .WithMany()
-                        .HasForeignKey("ReportToId");
+                        .WithMany("Employees")
+                        .HasForeignKey("ReportsTo")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Office");
 
@@ -544,6 +551,13 @@ namespace Simple_Order_System_APi.Migrations
                     b.Navigation("payments");
                 });
 
+            modelBuilder.Entity("Simple_Order_System_APi.Models.Employee", b =>
+                {
+                    b.Navigation("Account");
+
+                    b.Navigation("Employees");
+                });
+
             modelBuilder.Entity("Simple_Order_System_APi.Models.Office", b =>
                 {
                     b.Navigation("Employees");
@@ -557,6 +571,11 @@ namespace Simple_Order_System_APi.Migrations
             modelBuilder.Entity("Simple_Order_System_APi.Models.ProductLine", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Simple_Order_System_APi.Models.Role", b =>
+                {
+                    b.Navigation("AccountRoles");
                 });
 #pragma warning restore 612, 618
         }

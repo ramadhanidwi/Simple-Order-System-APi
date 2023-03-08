@@ -15,7 +15,7 @@ namespace Simple_Order_System_APi.Models
         [Required, Column("payment_date")]
         public DateTime PaymentDate { get; set; }
 
-        [Required, Range(0, 13), Column("amount")]
+        [Required, Column("amount")]
         public int Amount { get; set; }
 
         [Column("customer_id")]

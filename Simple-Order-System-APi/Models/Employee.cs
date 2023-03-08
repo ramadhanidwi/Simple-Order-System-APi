@@ -8,14 +8,14 @@ namespace Simple_Order_System_APi.Models
 
     public class Employee
     {
-        [Key, Column("id")]
-        public int Id { get; set; }
+        [Key, Column("id", TypeName ="nchar(5)")]
+        public string Id { get; set; }
 
         [Required, Column("office_code")]
         public int OfficeCode { get; set; }
 
-        [Column("reports_to")]
-        public int? ReportsTo { get; set; }
+        [Column("reports_to", TypeName ="nchar(5)")]
+        public string? ReportsTo { get; set; }
 
         [Required, Column("first_name"), MaxLength(50)]
         public string FirstName { get; set; }
@@ -29,19 +29,23 @@ namespace Simple_Order_System_APi.Models
         [Required, Column("job_title"), MaxLength(30)]
         public string JobTitle { get; set; }
 
+
         //relasi & cardinality
         [ForeignKey(nameof(OfficeCode))]
         [JsonIgnore]
         public Office? Office { get; set; }
 
         [JsonIgnore]
-
         public Employee? ReportTo { get; set; }
 
         [JsonIgnore]
         ICollection<Customer>? Customers { get; set; }
-        
 
+        [JsonIgnore]
+        public ICollection<Employee>? Employees { get; set; }
+
+        [JsonIgnore]
+        public Account? Account { get; set; }   
 
     }
 

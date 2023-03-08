@@ -6,7 +6,7 @@ namespace Simple_Order_System_APi.Models
     [Table("tb_m_customers")]
     public class Customer
     {
-        [Key, Column("id", TypeName = "nchar(11)")]
+        [Key, Column("id")]
         public int Id { get; set; }
 
         [Required, Column("first_name", TypeName ="nvarchar(50)")]
@@ -37,12 +37,11 @@ namespace Simple_Order_System_APi.Models
         public string Country { get; set; }
 
         [Column("employee_id")]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
 
         //relasi
         [ForeignKey(nameof(EmployeeId))]
-
         [JsonIgnore]
         public Employee? Employee { get; set; }
 

@@ -21,8 +21,43 @@ namespace Simple_Order_System_APi.Contexts
         public DbSet<Payment> Payments { get; set; }
         public DbSet<AccountRole> AccountRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
+      
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Role>().HasData(
+                new Role
+                {
+                    Id = 1,
+                    Name = "Admin",
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "User",
+                });
 
+            // Membuat atribute menjadi unique
+            modelBuilder.Entity<Employee>().HasIndex(e => new
+            {
+                e.Email
+            }).IsUnique();
+
+            // Relasi one Employee ke one Account 
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Account)
+                .WithOne(a => a.Employee)
+                .HasForeignKey<Account>(fk => fk.EmployeeId);
+
+            // Relasi ke many employee ke one manager
+            modelBuilder.Entity<Employee>()
+                        .HasOne(e => e.ReportTo)
+                        .WithMany(e => e.Employees)
+                        .HasForeignKey(fk => fk.ReportsTo)
+                        .OnDelete(DeleteBehavior.NoAction);
+            
+        }
 
     }
 }

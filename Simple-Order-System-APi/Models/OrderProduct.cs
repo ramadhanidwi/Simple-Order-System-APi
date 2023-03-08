@@ -15,7 +15,7 @@ namespace Simple_Order_System_APi.Models
         public int Qty { get; set; }
 
 
-        [Range(0,13), Required, Column("price_each")]
+        [Required, Column("price_each")]
         public int PriceEach { get; set; }
 
 
