@@ -6,51 +6,51 @@ namespace Simple_Order_System_APi.Models
     [Table("tb_m_customers")]
     public class Customer
     {
-        [Key, Column("id", TypeName = "nchar(11)")]
+        [Key, Column("id")]
         public int Id { get; set; }
 
-        [Required, Column("first_name", TypeName ="nvarchar(50)")]
+        [Required, Column("first_name")]
         public string FirstName { get; set; }
 
-        [Column("last_name", TypeName = "nvarchar(50)")]
+        [Column("last_name")]
         public string? LastName { get; set; }
 
-        [Required, Column("phone", TypeName = "nvarchar(15)")]
+        [Required, Column("phone")]
         public string Phone { get; set; }
 
-        [Required, Column("address1", TypeName = "nvarchar(255)")]
+        [Required, Column("address1")]
         public string Address1 { get; set; }
 
-        [Column("address2", TypeName = "nvarchar(255)")]
+        [Column("address2")]
         public string? Address2 { get; set; }
 
-        [Required, Column("city", TypeName = "nvarchar(50)")]
+        [Required, Column("city")]
         public string City { get; set; }
 
-        [Required, Column("state", TypeName = "nvarchar(50)")]
+        [Required, Column("state")]
         public string State { get; set; }
 
-        [Required, Column("postal_code", TypeName = "nvarchar(10)")]
+        [Required, Column("postal_code")]
         public string PostalCode { get; set; }
 
-        [Required, Column("country", TypeName = "nvarchar(50)")]
+        [Required, Column("country")]
         public string Country { get; set; }
 
         [Column("employee_id")]
         public int EmployeeId { get; set; }
 
-
         //relasi
         [ForeignKey(nameof(EmployeeId))]
 
+        //cardinality
         [JsonIgnore]
         public Employee? Employee { get; set; }
 
         [JsonIgnore]
-        public ICollection<Order>? orders { get; set; }
+        public ICollection<Order>? Orders{ get; set; }
 
         [JsonIgnore]
-        public ICollection<Payment>? payments { get; set; }
+        public ICollection<Payment>? Payments { get; set; }
 
     }
 }

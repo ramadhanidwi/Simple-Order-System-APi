@@ -5,11 +5,8 @@ namespace Simple_Order_System_APi.Repositories.Data
 {
     public class EmployeeRepository : GeneralRepository<int, Employee>
     {
-        private readonly MyContext context;
-
         public EmployeeRepository(MyContext context) : base(context)
         {
-            this.context = context;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Simple_Order_System_APi.Models
     [Table("tb_m_payments")]
     public class Payment
     {
-        [Key, Column("check_num", TypeName = "nvarchar(10)")]
+        [Key, Column("check_num")]
         public int CheckNum { get; set; }
 
         [Required, Column("payment_date")]
@@ -21,9 +21,13 @@ namespace Simple_Order_System_APi.Models
         [Column("customer_id")]
         public int CustomerId {get; set;}
 
-        //Cardinality 
+        
+        //relasi
         [ForeignKey(nameof(CustomerId))]
-        public Customer customer { get; set; }
+
+        //Cardinality 
+        [JsonIgnore]
+        public Customer? Customer { get; set; }
 
     }
 }

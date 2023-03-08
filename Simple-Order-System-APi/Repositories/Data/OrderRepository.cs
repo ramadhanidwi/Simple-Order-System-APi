@@ -5,11 +5,8 @@ namespace Simple_Order_System_APi.Repositories.Data
 {
     public class OrderRepository : GeneralRepository<int, Order>
     {
-        private readonly MyContext context;
-
         public OrderRepository(MyContext context) : base(context)
         {
-            this.context = context;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Simple_Order_System_APi.Models
     [Table("tb_m_orders")]
     public class Order
     {
-        [Key, Column("id", TypeName = "nchar(11)")]
+        [Key, Column("id")]
         public int Id { get; set; }
 
         [Required, Column("order_date")]
@@ -16,19 +16,21 @@ namespace Simple_Order_System_APi.Models
         [Required, Column("shipped_date")]
         public DateTime ShippedDate { get; set; }
 
-        [Required, Column("comments", TypeName = "nvarchar(255)")]
+        [Required, Column("comments")]
         public string Comments { get; set; }
 
         [Column("customer_id")]
         public int CustomerId { get; set; }
 
+        //relasi
+        [ForeignKey(nameof(CustomerId))]
+
         //Cardinality 
         [JsonIgnore]
-        [ForeignKey(nameof(CustomerId))]    
-        public Customer? customer { get; set; }
-
+        public Customer? Customer { get; set; }
         [JsonIgnore]
-        public ICollection<OrderProduct> orderProducts { get; set; }
+        public ICollection<OrderProduct>? OrderProducts { get; set; }
 
+        
     }
 }

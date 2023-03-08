@@ -12,4 +12,3 @@ namespace Simple_Order_System_APi.ViewModels
         public string Password { get; set; }
     }
 }
-

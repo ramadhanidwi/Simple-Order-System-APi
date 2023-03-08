@@ -5,11 +5,8 @@ namespace Simple_Order_System_APi.Repositories.Data
 {
     public class ProductLineRepository : GeneralRepository<int, ProductLine>
     {
-        private readonly MyContext context;
-
         public ProductLineRepository(MyContext context) : base(context)
         {
-            this.context = context;
         }
     }
 }

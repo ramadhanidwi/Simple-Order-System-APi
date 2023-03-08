@@ -1,23 +1,35 @@
-﻿using Simple_Order_System_APi.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Simple_Order_System_APi.ViewModels
 {
     public class RegisterVM
     {
-        [MaxLength(2), MinLength(2, ErrorMessage = "ex: S1/D3")]
-        [Required(ErrorMessage = "Tidak Boleh Kosong ex: D3/S1")]
-        public string Degree { get; set; }
+        public int Id { get; set; }
 
-        [Range(0, 4, ErrorMessage = "Inputan Harus Lebih dari {1} dan Kurang dari {2}")]
-        public float GPA { get; set; }
+        [Display(Name = "Office Code")]
+        public int OfficeCode { get; set; }
 
-        public string UniversityName { get; set; }
+        [Display(Name = "Reports To")]
+        public int? ReportsTo { get; set; }
+
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string? LastName { get; set; }
+
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Display(Name = "Job Title")]
+        public string JobTitle { get; set; }
 
         [DataType(DataType.Password)]
         [StringLength(255, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
 
+        [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }

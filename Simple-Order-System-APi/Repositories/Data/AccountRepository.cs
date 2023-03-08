@@ -1,4 +1,5 @@
-﻿using Simple_Order_System_APi.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Simple_Order_System_APi.Contexts;
 using Simple_Order_System_APi.Handlers;
 using Simple_Order_System_APi.Models;
 using Simple_Order_System_APi.ViewModels;
